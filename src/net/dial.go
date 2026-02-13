@@ -303,6 +303,7 @@ func parseNetwork(ctx context.Context, network string, needsProto bool) (afnet s
 		switch network {
 		case "tcp", "tcp4", "tcp6":
 		case "udp", "udp4", "udp6":
+		case "sctp", "sctp4", "sctp6":
 		case "ip", "ip4", "ip6":
 			if needsProto {
 				return "", 0, UnknownNetworkError(network)
@@ -358,6 +359,7 @@ func (r *Resolver) resolveAddrList(ctx context.Context, op, network, addr string
 	var (
 		tcp      *TCPAddr
 		udp      *UDPAddr
+		sctp     *SCTPAddr
 		ip       *IPAddr
 		wildcard bool
 	)
@@ -368,6 +370,9 @@ func (r *Resolver) resolveAddrList(ctx context.Context, op, network, addr string
 	case *UDPAddr:
 		udp = hint
 		wildcard = udp.isWildcard()
+	case *SCTPAddr:
+		sctp = hint
+		wildcard = sctp.isWildcard()
 	case *IPAddr:
 		ip = hint
 		wildcard = ip.isWildcard()
@@ -385,6 +390,11 @@ func (r *Resolver) resolveAddrList(ctx context.Context, op, network, addr string
 			naddrs = append(naddrs, addr)
 		case *UDPAddr:
 			if !wildcard && !addr.isWildcard() && !addr.IP.matchAddrFamily(udp.IP) {
+				continue
+			}
+			naddrs = append(naddrs, addr)
+		case *SCTPAddr:
+			if !wildcard && !addr.isWildcard() && !addr.IP.matchAddrFamily(sctp.IP) {
 				continue
 			}
 			naddrs = append(naddrs, addr)
@@ -793,6 +803,9 @@ func (sd *sysDialer) dialSingle(ctx context.Context, ra Addr) (c Conn, err error
 	case *UDPAddr:
 		la, _ := la.(*UDPAddr)
 		c, err = sd.dialUDP(ctx, la, ra)
+	case *SCTPAddr:
+		la, _ := la.(*SCTPAddr)
+		c, err = sd.dialSCTP(ctx, la, ra)
 	case *IPAddr:
 		la, _ := la.(*IPAddr)
 		c, err = sd.dialIP(ctx, la, ra)
@@ -923,6 +936,8 @@ func (lc *ListenConfig) ListenPacket(ctx context.Context, network, address strin
 	switch la := la.(type) {
 	case *UDPAddr:
 		c, err = sl.listenUDP(ctx, la)
+	case *SCTPAddr:
+		c, err = sl.listenSCTP(ctx, la)
 	case *IPAddr:
 		c, err = sl.listenIP(ctx, la)
 	case *UnixAddr:
