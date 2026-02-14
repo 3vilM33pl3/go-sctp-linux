@@ -1,0 +1,26 @@
+\section{Introduction}
+\label{sec:intro}
+
+Transport protocol choice in many software stacks has narrowed to TCP or UDP, even though Internet architecture never required such a binary choice. The original internetworking design emphasized extensibility and evolution at protocol boundaries \cite{cerf1974protocol,rfc1122,rfc1958}. SCTP was standardized to provide reliable, congestion-controlled, message-oriented transport with features that are difficult or expensive to emulate correctly above TCP or UDP \cite{rfc9260,rfc6458,stewart2001sctp}.
+
+This paper revisits an earlier 2013 implementation effort and updates the work for Linux and a modern Go runtime source tree. The goal is not to present SCTP as ``new'', but to demonstrate that it can be integrated into a mainstream language runtime with the same first-class treatment given to TCP and UDP. In this context, first-class means:
+
+\begin{itemize}
+\item explicit address and connection types in the standard networking package,
+\item normal resolver, dial, and listen flows,
+\item direct support for protocol-specific metadata and controls,
+\item test coverage and interoperability validation against an independent implementation.
+\end{itemize}
+
+The implementation in this repository adds SCTP support directly inside Go's \texttt{net} package on Linux, including public API surface (\texttt{SCTPAddr}, \texttt{SCTPConn}, \texttt{DialSCTP}, \texttt{ListenSCTP}), Linux data-path support for \texttt{sendmsg}/\texttt{recvmsg}, and targeted test and interop harnesses.
+
+The paper's central thesis is that SCTP belongs next to TCP and UDP in modern runtime APIs because:
+
+\begin{enumerate}
+\item Internet protocol architecture is intentionally extensible \cite{rfc1122,rfc1958}.
+\item SCTP is a mature standards-track transport with broad, production-relevant semantics \cite{rfc9260,rfc6458,rfc3758,rfc8260}.
+\item Runtime integration is technically modest when implemented through existing socket abstraction seams.
+\item Real interoperability with C++ Linux SCTP endpoints demonstrates practical viability.
+\end{enumerate}
+
+The remainder of this paper builds this argument from standards context, implementation design, and measured evaluation.

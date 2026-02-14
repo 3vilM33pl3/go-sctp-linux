@@ -1,0 +1,44 @@
+\section{Why SCTP Should Be First-Class}
+\label{sec:why}
+
+\subsection{Architectural Basis: IP Was Designed to Evolve}
+The Internet stack has long separated network and transport concerns to permit independent evolution \cite{cerf1974protocol,rfc791,rfc1122}. RFC 1958 makes this explicit: successful protocol design assumes change and adaptation over time \cite{rfc1958}. Treating TCP and UDP as immutable endpoints of transport evolution is therefore an operational habit, not an architectural law.
+
+\subsection{SCTP Is Not Experimental}
+SCTP is a standards-track transport protocol with a mature socket API and long-running implementations \cite{rfc9260,rfc6458,linuxsctp7}. Relative to canonical TCP and UDP definitions \cite{rfc9293,rfc768}, it combines properties that many applications need:
+
+\begin{itemize}
+\item reliable, congestion-aware transport like TCP,
+\item preservation of message boundaries unlike TCP,
+\item multistreaming to reduce head-of-line coupling,
+\item optional multihoming and failover support at transport layer,
+\item protocol-level extensibility (e.g., partial reliability, schedulers).
+\end{itemize}
+
+These are not theoretical features; they are codified in the base protocol and extensions \cite{rfc3758,rfc5061,rfc7053,rfc8260}.
+
+\subsection{Industry Relevance}
+SCTP is also used as the transport substrate for WebRTC data channels \cite{rfc8831,rfc8832}. This matters for two reasons: first, it disproves the claim that SCTP has no mainstream deployment; second, it shows that modern systems already depend on SCTP semantics when message orientation and stream multiplexing are required.
+
+\subsection{Comparison with TCP and UDP}
+Table \ref{tab:transport-compare} summarizes why SCTP deserves parity in language runtime APIs.
+
+\begin{table}[htbp]
+\caption{Transport Feature Comparison}
+\label{tab:transport-compare}
+\centering
+\begin{tabular}{lccc}
+\toprule
+Feature & TCP & UDP & SCTP \\
+\midrule
+Reliable delivery & Yes & No & Yes \\
+Message boundaries & No & Yes & Yes \\
+Built-in multistreaming & No & No & Yes \\
+Transport multihoming & No & No & Yes \\
+Congestion control & Yes & No & Yes \\
+Socket API standardization & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The practical conclusion is straightforward: if TCP and UDP are exposed natively in a runtime's core networking API, SCTP can be justified by the same criterion used for those protocols, namely broad utility plus standards-based interoperability.

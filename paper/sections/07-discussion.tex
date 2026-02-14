@@ -1,0 +1,28 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Why This Supports ``First-Class'' Status}
+The implementation and evaluation provide concrete evidence for first-class SCTP treatment in a modern runtime:
+
+\begin{itemize}
+\item \textbf{API symmetry:} SCTP follows the same naming and usage patterns as TCP/UDP in Go's \texttt{net} package.
+\item \textbf{Internal symmetry:} SCTP plugs into existing resolver, dial, listen, and file-descriptor workflows.
+\item \textbf{Interoperability:} wire-level behavior is compatible with independent Linux C++ SCTP endpoints.
+\item \textbf{Operational symmetry:} tests and harness execution integrate into standard CI-style workflows.
+\end{itemize}
+
+This is precisely what ``first-class'' should mean in a runtime context.
+
+\subsection{The Extensibility Argument}
+Internet architecture intentionally supports protocol evolution \cite{cerf1974protocol,rfc1122,rfc1958}. Treating SCTP as a default-capable option is consistent with this model and avoids unnecessary application-layer reimplementation of transport semantics. This is aligned with end-to-end design reasoning: semantics that belong at transport should not be rebuilt repeatedly in each application \cite{saltzer1984endtoend}. In practice, forcing message-oriented or multi-stream designs onto TCP often reintroduces complexity that SCTP already standardizes.
+
+\subsection{Additional Practical Arguments}
+Beyond architectural correctness, several practical arguments support broader SCTP exposure:
+\begin{itemize}
+\item \textbf{Correctness:} protocol-level message framing reduces application parsing ambiguity.
+\item \textbf{Performance isolation:} multistreaming can reduce cross-flow head-of-line coupling.
+\item \textbf{Resilience:} multihoming and association semantics improve failover options.
+\item \textbf{Security posture:} SCTP's association handshake and extension mechanisms provide robust baseline behavior \cite{rfc9260}.
+\end{itemize}
+
+None of these claims require replacing TCP/UDP; they require giving developers a native, standards-based choice.

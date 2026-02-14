@@ -1,0 +1,42 @@
+\section{Evaluation Method}
+\label{sec:method}
+
+\subsection{Objectives}
+The evaluation verifies two claims:
+\begin{enumerate}
+\item SCTP is integrated as a first-class runtime transport, not as an out-of-tree shim.
+\item The implementation interoperates with an independent C++ SCTP endpoint on Linux.
+\end{enumerate}
+
+\subsection{Environment}
+Measurements in this paper were captured on:
+\begin{itemize}
+\item OS: Ubuntu 25.10, Linux kernel 6.17.0-12-generic
+\item Architecture: \texttt{linux/amd64}
+\item Go tree: in-repo build, version \texttt{go1.27-devel\_c9cbeb0}
+\item SCTP kernel module enabled (\texttt{sctp})
+\end{itemize}
+
+\subsection{Go Package Tests}
+Targeted tests in \texttt{net} were executed:
+\begin{itemize}
+\item \texttt{TestSCTPLoopbackReadWrite}
+\item \texttt{TestSCTPUnsupportedOnBadNetwork}
+\item \texttt{TestResolveSCTPAddrUnknownNetwork}
+\item \texttt{TestParseNetworkSCTP}
+\item \texttt{TestSCTPAddrString}
+\end{itemize}
+
+These tests validate local SCTP I/O behavior, error semantics, and network/address parsing paths.
+
+\subsection{Go<->C++ Interoperability Matrix}
+Interop uses the repository harness at \texttt{misc/sctp-interop/harness/run\_matrix.sh} and covers:
+\begin{enumerate}
+\item Go server receiving from C++ client.
+\item C++ server receiving from Go client.
+\end{enumerate}
+
+Both scenarios verify payload integrity and SCTP metadata transport (stream ID and PPID). The C++ side uses Linux SCTP userspace API calls and \texttt{recvmsg} ancillary parsing.
+
+\subsection{Timing Measurement}
+The complete matrix runner was executed 20 times. Wall-clock duration per run was recorded from shell timestamps. This provides a lightweight integration performance indicator for repeated bring-up, cross-language exchange, and teardown under the same configuration.

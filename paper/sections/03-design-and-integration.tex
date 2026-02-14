@@ -1,0 +1,53 @@
+\section{Design and Integration in the Go Runtime}
+\label{sec:design}
+
+\subsection{Integration Goal}
+The implementation target is parity with existing \texttt{net} package transport patterns: address resolution, dial/listen entry points, and connection methods should look and behave like TCP/UDP equivalents while exposing SCTP-specific controls where required.
+
+\subsection{Public API Additions}
+The Linux implementation introduces SCTP-specific types and functions in \texttt{src/net/sctpsock.go}, including:
+
+\begin{itemize}
+\item \texttt{type SCTPAddr \{ IP net.IP; Port int; Zone string \}}
+\item \texttt{ResolveSCTPAddr(network, address)}
+\item \texttt{DialSCTP(network, laddr, raddr)}
+\item \texttt{ListenSCTP(network, laddr)}
+\item \texttt{type SCTPConn} with \texttt{ReadFromSCTP}, \texttt{WriteToSCTP}, \texttt{SetNoDelay}, \texttt{SetInitOptions}, \texttt{SubscribeEvents}
+\end{itemize}
+
+These additions mirror established Go networking style and maintain compatibility with common \texttt{Conn}/\texttt{PacketConn} usage.
+
+\subsection{Runtime Touchpoints}
+Implementation is localized to existing extensibility seams in \texttt{net}:
+
+\begin{itemize}
+\item Resolver and network parsing integration in \texttt{src/net/ipsock.go}
+\item Dial/listen dispatch integration in \texttt{src/net/dial.go}
+\item Linux SCTP socket operations in \texttt{src/net/sctpsock\_posix.go}
+\item Linux SCTP constants and control-message marshaling in \texttt{src/net/sctpsock\_linux.go}
+\item Stubbed behavior for unsupported targets in \texttt{src/net/sctpsock\_stub.go}
+\end{itemize}
+
+This is the core evidence for integration ease: SCTP support was added by extending existing abstractions rather than redesigning the runtime networking architecture.
+
+\subsection{Data Path and Metadata}
+The implementation uses \texttt{SOCK\_SEQPACKET} with \texttt{IPPROTO\_SCTP}. Message transmission and reception are built on \texttt{sendmsg}/\texttt{recvmsg}, with ancillary control messages carrying SCTP metadata (\texttt{SCTP\_SNDINFO}, \texttt{SCTP\_RCVINFO}). This preserves message orientation while exposing stream and PPID metadata to applications.
+
+\subsection{One-to-Many First}
+The current design emphasizes one-to-many SCTP semantics for Linux. \texttt{DialSCTP} uses an unconnected socket model with remote destination retained for default sends, and \texttt{ListenSCTP} follows passive receive behavior on \texttt{SOCK\_SEQPACKET}. This keeps the API simple while supporting key SCTP behavior.
+
+\begin{figure}[htbp]
+\centering
+\fbox{
+\parbox{0.47\textwidth}{
+\textbf{Integration map in Go \texttt{net} package}\\
+1) Parse network: \texttt{sctp}, \texttt{sctp4}, \texttt{sctp6}\\
+2) Resolve endpoint: \texttt{SCTPAddr}\\
+3) Dial/listen dispatch in shared socket path\\
+4) Linux SCTP options and cmsg handlers\\
+5) Public \texttt{SCTPConn} methods for metadata-aware I/O
+}
+}
+\caption{SCTP follows existing TCP/UDP extension seams in Go networking internals.}
+\label{fig:integration-map}
+\end{figure}

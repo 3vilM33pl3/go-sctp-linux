@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper presented a Linux-focused SCTP integration into a modern Go runtime and evaluated it with in-tree tests plus Go<->C++ interoperability scenarios. The evidence supports the main claim: SCTP can and should be treated as a first-class transport next to TCP and UDP in runtime networking APIs.
+
+The broader point is architectural. Internet protocol design expects extensibility, and SCTP is a mature transport standard that addresses real application needs without forcing ad hoc reimplementation at higher layers. The implementation in this repository demonstrates that enabling SCTP in a mainstream runtime is not a disruptive redesign; it is an incremental, testable extension of existing networking abstractions.
+
+Treating SCTP as first-class is therefore both technically justified and operationally practical.

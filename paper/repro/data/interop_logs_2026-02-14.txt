@@ -1,0 +1,16 @@
+# Interop logs (2026-02-14)
+
+## go_server.log
+GO_SERVER_NOTIFY flags=32896
+GO_SERVER_RECV stream=3 ppid=101 payload=cpp-to-go
+
+## cpp_client.log
+CPP_CLIENT_SENT stream=3 ppid=101 payload=cpp-to-go
+
+## cpp_server.log
+CPP_NOTIFY type=32769
+CPP_SERVER_RECV stream=4 ppid=202 payload=go-to-cpp
+
+## go_client.log
+GO_CLIENT_SENT stream=4 ppid=202 payload=go-to-cpp
+

@@ -1,0 +1,10 @@
+\section{Related Work}
+\label{sec:related}
+
+The original SCTP motivation and protocol model are well documented in standards and reference texts \cite{rfc9260,stewart2001sctp}. The socket API formalization in RFC 6458 is directly relevant to runtime and language binding design \cite{rfc6458}. Extensions such as partial reliability and stream scheduling further differentiate SCTP from TCP-centric abstractions \cite{rfc3758,rfc8260}.
+
+Several prior studies evaluated SCTP capabilities. Iyengar et al. explored concurrent multipath transfer over SCTP multihoming \cite{iyengar2006cmt}. Penoff et al. described a portable userspace SCTP stack and portability/performance trade-offs \cite{penoff2012userspacesctp}. These works support the view that SCTP is both implementable and practically useful across deployment contexts.
+
+More generally, transport evolution research has shown how deployment friction can ossify protocol diversity \cite{honda2011extendtcp}. This paper contributes from a runtime-engineering perspective: language-level first-class APIs materially reduce that friction by making non-TCP transports available through familiar interfaces.
+
+Finally, WebRTC data channels demonstrate broad production exposure of SCTP semantics in modern applications \cite{rfc8831,rfc8832}. This real-world adoption weakens arguments that SCTP is niche or obsolete.

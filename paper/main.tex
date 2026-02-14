@@ -1,0 +1,46 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{url}
+
+\title{SCTP as a First-Class Transport in Go on Linux:\\
+An Implementation and Interoperability Study}
+
+\author{
+\IEEEauthorblockN{Olivier Van Acker}
+\IEEEauthorblockA{
+Independent Researcher\\
+London, United Kingdom\\
+olivier@robotmotel.com}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper revisits a 2013 SCTP-in-Go implementation and re-establishes the design on Linux in a modern Go runtime tree. The central claim is that SCTP should be treated as a first-class transport protocol next to TCP and UDP, not as an exotic add-on. The argument is architectural and empirical: Internet protocol layering was designed to evolve, SCTP is a mature IETF transport, and practical integration in a contemporary runtime is straightforward when the networking stack is already protocol-agnostic at key extension points. We describe the Linux integration in Go's \texttt{net} package, show API parity with existing TCP/UDP patterns, and evaluate interoperability against an independent C++ endpoint built on Linux SCTP APIs. Results show that the implementation passes in-tree SCTP tests and bilateral Go<->C++ interop scenarios while preserving SCTP-specific metadata such as stream identifier and PPID. The outcome supports a broader position: modern language runtimes should expose SCTP as a standard transport option for message-oriented and resilience-aware applications rather than forcing all designs through TCP or UDP.
+\end{abstract}
+
+\begin{IEEEkeywords}
+SCTP, Go runtime, Linux networking, transport protocols, interoperability, sockets API
+\end{IEEEkeywords}
+
+\input{sections/01-introduction}
+\input{sections/02-why-first-class}
+\input{sections/03-design-and-integration}
+\input{sections/04-evaluation-method}
+\input{sections/05-results}
+\input{sections/06-related-work}
+\input{sections/07-discussion}
+\input{sections/08-limitations}
+\input{sections/09-conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}
