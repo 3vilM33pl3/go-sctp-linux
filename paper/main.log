@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.2.14)  14 FEB 2026 08:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.2.14)  14 FEB 2026 14:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -381,17 +381,19 @@ LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 2
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-(./sections/01-introduction.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 9.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 26.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 26.
+
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+(./sections/01-introduction.tex
 Underfull \hbox (badness 2762) in paragraph at lines 15--16
 \OT1/ptm/m/n/10 port di-rectly in-side Go's \OT1/pcr/m/n/10 net \OT1/ptm/m/n/10
  pack-age on Linux, in-
@@ -535,24 +537,13 @@ Overfull \hbox (4.19843pt too wide) in paragraph at lines 20--28
 
 
 
-Overfull \hbox (133.83865pt too wide) in paragraph at lines 51--51
-\OT1/ptm/m/n/10 Data source: \OT1/pcr/m/n/10 paper/repro/data/interop_matrix_ru
-ntime_2026-02-14.csv 
- []
-
-
-Overfull \hbox (4.32074pt too wide) in paragraph at lines 51--52
+Overfull \hbox (4.32074pt too wide) in paragraph at lines 53--54
  [][] 
  []
 
 ) (./sections/06-related-work.tex) (./sections/07-discussion.tex
 
-[3]) (./sections/08-limitations.tex
-Underfull \hbox (badness 1803) in paragraph at lines 8--9
-[]\OT1/ptm/m/n/10 Interop ma-trix val-i-dates bidi-rec-tional Go<->C++ ex-
- []
-
-) (./sections/09-conclusion.tex
+[3]) (./sections/08-limitations.tex) (./sections/09-conclusion.tex
 
 ) (./main.bbl
 
@@ -581,26 +572,28 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8344 strings out of 475102
- 191897 string characters out of 5764877
+ 8354 strings out of 475102
+ 191993 string characters out of 5764877
  563059 words of memory out of 5000000
- 31240 multiletter control sequences out of 15000+600000
- 599030 words of font info for 116 fonts, out of 8000000 for 9000
+ 31246 multiletter control sequences out of 15000+600000
+ 600575 words of font info for 122 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 73i,10n,80p,1224b,657s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 73i,11n,80p,1240b,657s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/tim
-es/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 138497 bytes).
+f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/urw/courier/ucrb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
+ier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (5 pages, 154283 bytes).
 PDF statistics:
- 71 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

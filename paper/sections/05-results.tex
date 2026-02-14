@@ -14,15 +14,15 @@ Both interoperability directions passed:
 Table \ref{tab:interop-observed} summarizes the observed data-plane correctness.
 
 \begin{table}[htbp]
-\caption{Observed Go<->C++ SCTP Interoperability}
+\caption{Observed Go $\leftrightarrow$ C++ SCTP Interoperability}
 \label{tab:interop-observed}
 \centering
 \begin{tabular}{p{0.20\textwidth}p{0.25\textwidth}}
 \toprule
 Scenario & Observed output \\
 \midrule
-Go server <- C++ client & \texttt{stream=3 ppid=101 payload=cpp-to-go} \\
-C++ server <- Go client & \texttt{stream=4 ppid=202 payload=go-to-cpp} \\
+Go server $\leftarrow$ C++ client & \texttt{stream=3 ppid=101 payload=cpp-to-go} \\
+C++ server $\leftarrow$ Go client & \texttt{stream=4 ppid=202 payload=go-to-cpp} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -46,10 +46,12 @@ The low variation suggests stable harness behavior and reproducible cross-langua
 Mean: 2.187 s\\
 Min/Max: 2.177 s / 2.204 s\\
 Std. dev.: 0.006 s\\
-Data source: \texttt{paper/repro/data/interop\_matrix\_runtime\_2026-02-14.csv}
+Data source:\\
+\texttt{paper/repro/data/}\\
+\texttt{interop\_matrix\_runtime\_2026-02-14.csv}
 }
 }
-\caption{Runtime stability of the Go<->C++ SCTP matrix on Linux.}
+\caption{Runtime stability of the Go $\leftrightarrow$ C++ SCTP matrix on Linux.}
 \label{fig:runtime-summary}
 \end{figure}
 
